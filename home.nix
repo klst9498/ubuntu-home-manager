@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "klst9498";
@@ -32,7 +34,7 @@
     firefox
     git
     git-crypt
-    git-repo   
+    git-repo
     go
     gum
     gnupg
@@ -93,22 +95,50 @@
     # EDITOR = "emacs";
   };
 
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
     fish = {
-     enable = true;
-     plugins = [{
-       name="foreign-env";
-       src = pkgs.fetchFromGitHub {
-         owner = "oh-my-fish";
-         repo = "plugin-foreign-env";
-         rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
-         sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
-       };
-     }];
-
+      enable = true;
+      plugins = [
+        {
+          name = "foreign-env";
+          src = pkgs.fetchFromGitHub {
+            owner = "oh-my-fish";
+            repo = "plugin-foreign-env";
+            rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
+            sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+          };
+        }
+      ];
+      shellAbbrs = {
+        hms = "home-manager switch";
+      };
+      shellAliases = {
+        rbs = "~/.config/home-manager/rebuild.sh";
+        # I know Thats a bad place but it's working :-)
+        k = "kubectl";
+        kaf = "kubectl apply -f";
+        kccc = "kubectl config current-context";
+        kcn = "kubectl config set-context --current --namespace";
+        kcp = "kubectl cp";
+        kcuc = "kubectl config use-context";
+        kdel = "kubectl delete";
+        kdelf = "kubectl delete -f";
+        kd = "kubectl describe";
+        kg = "kubectl get";
+        kgpo = "kubectl get pod";
+        kgpvc = "kubectl get pvc";
+        kl = "kubectl logs";
+        kl1h = "kubectl logs --since 1h";
+        kl1m = "kubectl logs --since 1m";
+        kl1s = "kubectl logs --since 1s";
+        klf = "kubectl logs -f";
+        klf1h = "kubectl logs --since 1h -f";
+        klf1m = "kubectl logs --since 1m -f";
+        klf1s = "kubectl logs --since 1s -f";
+        kpf = "kubectl port-forward";
+      };
     };
 
     starship.enable = true;
@@ -131,8 +161,8 @@
 
     git = {
       enable = true;
-      userEmail = "klaus.Staudenmaier@elektrobit.com"; 
-      userName = "Staudenmaier, Klaus"; 
+      userEmail = "klaus.Staudenmaier@elektrobit.com";
+      userName = "Staudenmaier, Klaus";
       aliases = {
         gst = "status";
       };
@@ -159,8 +189,5 @@
         };
       };
     };
-
   };
-
-
 }
