@@ -17,23 +17,44 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+  home.packages = with pkgs; [
+    alacritty
+    alejandra
+    autojump
+    cue
+    devbox
+    devpod
+    devspace
+    feh
+    zf
+    fluxcd
+    file
+    firefox
+    git
+    git-crypt
+    git-repo   
+    go
+    gum
+    gnupg
+    gparted
+    htop
+    jq
+    k3d
+    k9s
+    kustomize
+    kompose
+    kubectl
+    krew
+    kubernetes-helm
+    ripgrep
+    source-code-pro
+    terminator
+    timoni
+    tmux
+    tree
+    velero
+    vim
+    wget
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -71,6 +92,86 @@
     # EDITOR = "emacs";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+
+  programs = {
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+    fish = {
+     enable = true;
+     plugins = [{
+       name="foreign-env";
+       src = pkgs.fetchFromGitHub {
+         owner = "oh-my-fish";
+         repo = "plugin-foreign-env";
+         rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
+         sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+       };
+     }];
+
+     shellInit =
+     ''
+       # nix
+       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+         fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+       end
+
+       # home-manager
+       if test -e <nix_file_path_file>
+         fenv source <nix_file_path_file>
+       end
+     '';
+    };
+
+    starship.enable = true;
+    starship.settings = {
+      aws.disabled = false;
+      gcloud.disabled = false;
+      kubernetes.disabled = false;
+      git_branch.style = "242";
+      directory.style = "blue";
+      directory.truncate_to_repo = false;
+      directory.truncation_length = 8;
+      python.disabled = false;
+      ruby.disabled = true;
+      hostname.ssh_only = false;
+      hostname.style = "bold green";
+    };
+
+    fzf.enable = true;
+    fzf.enableFishIntegration = true;
+
+    git = {
+      enable = true;
+      userEmail = "klaus.Staudenmaier@elektrobit.com"; 
+      userName = "Staudenmaier, Klaus"; 
+      aliases = {
+        gst = "status";
+      };
+
+      extraConfig = {
+        # FIXME: uncomment the next lines if you want to be able to clone private https repos
+        # url = {
+        #   "https://oauth2:${secrets.github_token}@github.com" = {
+        #     insteadOf = "https://github.com";
+        #   };
+        #   "https://oauth2:${secrets.gitlab_token}@gitlab.com" = {
+        #     insteadOf = "https://gitlab.com";
+        #   };
+        # };
+        push = {
+          default = "current";
+          autoSetupRemote = true;
+        };
+        merge = {
+          conflictstyle = "diff3";
+        };
+        diff = {
+          colorMoved = "default";
+        };
+      };
+    };
+
+  };
+
+
 }
