@@ -29,6 +29,6 @@ Exchange the "home-manager" foler with the home-manager stored in git
     home-manager switch
 ```
 
-That's it :smile:
+That's it :runner:
 
 
