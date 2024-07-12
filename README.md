@@ -1,4 +1,4 @@
-# ubuntu-home-manager
+# Ubuntu home-manager
 
 # TLRD
 This repo can be used to bootstrap an fresh [wsl2 Ubuntu](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) with [home-manager](), [fish shell], and [starship](), ...
