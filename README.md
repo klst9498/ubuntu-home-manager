@@ -1,7 +1,7 @@
 # Ubuntu home-manager
 
 # TLRD
-This repo can be used to bootstrap an fresh [wsl2 Ubuntu](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) with [home-manager](), [fish shell], and [starship](), ...
+This repo can be used to bootstrap an fresh [wsl2 Ubuntu](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) with [home-manager](https://nix-community.github.io/home-manager/index.xhtml#preface), [fish shell](https://fishshell.com), and [starship](https://starship.rs), and a lot of packages needed for the daily work :blush:
 
 # Prerquisites
 
@@ -29,6 +29,6 @@ Exchange the "home-manager" foler with the home-manager stored in git
     home-manager switch
 ```
 
-That's it :smile:
+That's it :runner:
 
 
