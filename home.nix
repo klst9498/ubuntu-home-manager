@@ -100,6 +100,10 @@
     home-manager.enable = true;
     fish = {
       enable = true;
+      interactiveShellInit = ''
+        ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+        set -gx PATH $PATH $HOME/.krew/bin
+      '';
       plugins = [
         {
           name = "foreign-env";
