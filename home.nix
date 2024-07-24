@@ -1,3 +1,11 @@
+# TODO
+# Manual installed packages:
+# x11-xserver-utils
+# xserver-xephyr
+# krew install oidc-login
+# krew install get-all
+# kubectl krew install get-all
+# krew install oidc
 {
   config,
   pkgs,
@@ -23,7 +31,9 @@
     alacritty
     alejandra
     autojump
+    cascadia-code
     cue
+    clusterctl
     devbox
     devpod
     devspace
@@ -40,6 +50,8 @@
     gnupg
     gparted
     htop
+    i3
+    i3status
     jq
     k3d
     k9s
@@ -48,18 +60,28 @@
     kubectl
     krew
     kubernetes-helm
+    meslo-lg
+    meld
+    nerdfonts
+    pass
+    #needed for docker login to get it working
+    # call gpg --generate-key
+    # pass init 123.....
+    # check if this can be done via nix : sudo apt install libsecret-1-0
     ripgrep
     starship
+    sops
     source-code-pro
     terminator
+    tig
     timoni
     tmux
     tree
     velero
-    vim
     wget
   ];
 
+  fonts.fontconfig.enable = true;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -94,7 +116,6 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
@@ -145,19 +166,41 @@
       };
     };
 
-    starship.enable = true;
-    starship.settings = {
-      aws.disabled = false;
-      gcloud.disabled = false;
-      kubernetes.disabled = false;
-      git_branch.style = "242";
-      directory.style = "blue";
-      directory.truncate_to_repo = false;
-      directory.truncation_length = 8;
-      python.disabled = false;
-      ruby.disabled = true;
-      hostname.ssh_only = false;
-      hostname.style = "bold green";
+    starship = {
+      enable = true;
+      # todo
+      # settings = {
+      #   aws.disabled = false;
+      #   gcloud.disabled = false;
+      #   kubernetes.disabled = false;
+      #   git_branch.style = "242";
+      #   directory.style = "blue";
+      #   directory.truncate_to_repo = false;
+      #   directory.truncation_length = 8;
+      #   python.disabled = false;
+      #   ruby.disabled = true;
+      #   hostname.ssh_only = false;
+      #   hostname.style = "bold green";
+      #   add_newline = true;
+      #   format = ''
+      #     [░▒▓](#a3aed2)
+      #     [  ](bg:#a3aed2 fg:#090c0c)
+      #     [](bg:#769ff0 fg:#a3aed2)
+      #     $directory
+      #     [](fg:#769ff0 bg:#394260)
+      #     $git_branch
+      #     $git_status
+      #     [](fg:#394260 bg:#212736)
+      #     $nodejs
+      #     $rust
+      #     $golang
+      #     $php
+      #     [](fg:#212736 bg:#1d2230)
+      #     $time
+      #     [ ](fg:#1d2230)
+      #     \\n$character
+      #   '';
+      # };
     };
 
     fzf.enable = true;
