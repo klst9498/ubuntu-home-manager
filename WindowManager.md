@@ -1,6 +1,8 @@
 todo:
 
 sudo apt install -y xfce4 xserver-xephyr make
+sudo mkdir -p /run/dbus
+sudo dbus-daemon --system
 
 Test:
 Xephyr :1 -fullscreen
