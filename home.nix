@@ -50,10 +50,8 @@
     gnupg
     gparted
     htop
-    i3
-    i3status
     jq
-    k3d
+    #k3d
     k9s
     kustomize
     kompose
@@ -63,11 +61,16 @@
     meslo-lg
     meld
     nerdfonts
+    nushell
     pass
     #needed for docker login to get it working
     # call gpg --generate-key
     # pass init 123.....
     # check if this can be done via nix : sudo apt install libsecret-1-0
+    # see https://stackoverflow.com/questions/50151833/cannot-login-to-docker-account
+    # see: https://stackoverflow.com/questions/69808938/docker-credentials-store-on-wsl2-without-docker-desktop
+    # -> export GPG_TTY=$(tty)
+    python3
     ripgrep
     starship
     sops
@@ -124,6 +127,7 @@
       interactiveShellInit = ''
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
         set -gx PATH $PATH $HOME/.krew/bin
+        set -gx FISH_HISTORY /mnt/d/work/SharedFishHistory/fish_history
       '';
       plugins = [
         {
